@@ -7,14 +7,25 @@ public class Comment {
 	private int id; // 댓글의 고유 id
 	private String userId; // 댓글 작성자의 id
 	private int boardId; // 댓글이 작성된 게시판 id
-	private String comments; // 댓글내용
+	private String content; // 댓글내용
+	private String writer; // 댓글 작성자
 	private String registDate; // 댓글 작성시간
-	private int good; // 추천갯수
-	private int bad; // 비추갯수
-
-	public Comment(String comments) {
+	
+	
+	
+	public Comment(String content) {
 		super();
-		this.comments = comments;
+		this.content = content;
+	}
+
+	public Comment(int id, String userId, int boardId, String content, String writer, String registDate) {
+		super();
+		this.id = id;
+		this.userId = userId;
+		this.boardId = boardId;
+		this.content = content;
+		this.writer = writer;
+		this.registDate = registDate;
 	}
 
 	public int getId() {
@@ -41,12 +52,20 @@ public class Comment {
 		this.boardId = boardId;
 	}
 
-	public String getComments() {
-		return comments;
+	public String getContent() {
+		return content;
 	}
 
-	public void setComments(String comments) {
-		this.comments = comments;
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public String getWriter() {
+		return writer;
+	}
+
+	public void setWriter(String writer) {
+		this.writer = writer;
 	}
 
 	public String getRegistDate() {
@@ -57,25 +76,10 @@ public class Comment {
 		this.registDate = registDate;
 	}
 
-	public int getGood() {
-		return good;
-	}
-
-	public void setGood(int good) {
-		this.good = good;
-	}
-
-	public int getBad() {
-		return bad;
-	}
-
-	public void setBad(int bad) {
-		this.bad = bad;
-	}
-
 	@Override
 	public String toString() {
-		return "Comment [id=" + id + ", userId=" + userId + ", boardId=" + boardId + ", comments=" + comments
-				+ ", registDate=" + registDate + ", good=" + good + ", bad=" + bad + "]";
+		return "Comment [id=" + id + ", userId=" + userId + ", boardId=" + boardId + ", content=" + content
+				+ ", writer=" + writer + ", registDate=" + registDate + "]";
 	}
+	
 }

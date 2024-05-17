@@ -103,7 +103,7 @@ public class BoardRestController {
 
 			board.setUserId(login.getId());
 			board.setWorldcupId(w_id);
-
+			board.setWriter(login.getNickname());
 			boardService.writeBoard(board);
 			return new ResponseEntity<Board>(board, HttpStatus.OK);
 

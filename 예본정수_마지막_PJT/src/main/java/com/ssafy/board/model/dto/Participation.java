@@ -13,6 +13,13 @@ public class Participation {
 		this.worldcupId = worldcupId;
 		this.participationCount = participationCount;
 	}
+	
+	
+	public Participation() {
+		super();
+	}
+
+
 	public int getId() {
 		return id;
 	}

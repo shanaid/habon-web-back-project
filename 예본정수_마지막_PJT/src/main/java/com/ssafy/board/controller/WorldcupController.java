@@ -13,13 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.board.model.dto.Board;
+import com.ssafy.board.model.dto.Comment;
 import com.ssafy.board.model.dto.Elements;
+import com.ssafy.board.model.dto.User;
 import com.ssafy.board.model.dto.Worldcup;
 import com.ssafy.board.model.service.NoticeboardService;
 import com.ssafy.board.model.service.WorldcupService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -46,12 +50,39 @@ public class WorldcupController {
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
-	@GetMapping("/noticeboard/{worldId}")
+	@GetMapping("/noticeboard/{worldId}/{cnt}")
 	@Operation(summary = "월드컵 선택")
-	public ResponseEntity<List<Worldcup>> get(@PathVariable("worldId") int w_id) {
-		// 검사 -> 유저가 이거 참여 가능?
+	public ResponseEntity<?> get(@PathVariable("worldId") int w_id,@PathVariable("cnt") int cnt, HttpSession session) {
 		
-		// 그 카테고리에 속한 운동 선수 데려오고 -> 1,2군 생각해보기 가능한지
+		if (session.getAttribute("loginUser") != null) {
+			
+			User login = (User) session.getAttribute("loginUser");
+			
+			//참여 횟수가져오기 & 검사 -> 유저가 이거 참여 가능?
+			int partcnt = worldcupService.currentAttempts(w_id,login.getId());
+			
+			if(partcnt > 3) {//기회 3번 다 썻다면
+				String msg = "이번주는 해당 월드컵 3번만 참여 가능합니다.";
+				return new ResponseEntity<String>(msg, HttpStatus.BAD_REQUEST);
+			}
+			//기회가 남았다면
+				
+			// 그 카테고리에 속한 운동 선수 데려오고 -> 1,2군 생각해보기 가능한지
+			List<Elements> list = worldcupService.getelements(w_id ,cnt);
+			if(list.size()!=cnt) {
+				String msg = "해당 수의 데아터가 없습니다. 적은 수의 월드컵을 이용하세요";
+				return new ResponseEntity<String>(msg, HttpStatus.BAD_REQUEST);
+			}
+
+			return new ResponseEntity<List<Elements>>(list,HttpStatus.OK);
+			
+		} else {
+			String msg = "너 로그인 안됐어!";
+			return new ResponseEntity<String>(msg, HttpStatus.BAD_REQUEST);
+		}
+
+		
+		
 		
 		// 엘리먼츠 리스트에 가져오기 -> 몇명인지 조사 하는데 여기서 사용자 입력이 들어가
 		
@@ -60,7 +91,7 @@ public class WorldcupController {
 		// 
 		
 		
-			List<Elements> list = worldcupService.selcetWorldcup(w_id);
+//			List<Elements> list = worldcupService.selcetWorldcup(w_id);
 //			return new ResponseEntity<List<Worldcup>>(list, HttpStatus.OK);
 	}
 	

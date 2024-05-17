@@ -10,4 +10,32 @@
 		FROM worldcup
 	</select>
 
+    <select id="findByUserIdAndWorldcupId" parameterType="map" resultType="Participation">
+        SELECT * FROM Participation WHERE user_id = #{u_id} AND worldcup_id = #{w_id}
+    </select>
+
+    <insert id="insertParticipation" parameterType="Participation">
+        INSERT INTO Participation (user_id, worldcup_id, participation_count)
+        VALUES (#{userId}, #{worldcupId}, #{participationCount})
+    </insert>
+
+    <update id="updateParticipationCount" parameterType="map">
+        UPDATE Participation SET participation_count = participation_count + 1
+        WHERE user_id = #{u_id} AND worldcup_id = #{w_id}
+    </update>
+
+	<select id="getWorldcup" parameterType="int" resultType="Worldcup">
+		SELECT *
+		FROM worldcup
+		WHERE id = #{id}
+	</select>
+	
+	<select id="getAllElements" parameterType="String" resultType="Elements">
+		SELECT *
+		FROM elements
+		WHERE sub_category = #{categori}
+	</select>
+	
+	
+
 </mapper>

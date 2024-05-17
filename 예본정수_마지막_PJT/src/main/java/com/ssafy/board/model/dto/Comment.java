@@ -5,8 +5,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @Schema(description = "댓글 dto")
 public class Comment {
 	private int id; // 댓글의 고유 id
-	private String userId; // 댓글 작성자의 id
 	private int boardId; // 댓글이 작성된 게시판 id
+	private String userId; // 댓글 작성자의 id
 	private String content; // 댓글내용
 	private String writer; // 댓글 작성자
 	private String registDate; // 댓글 작성시간
@@ -18,11 +18,11 @@ public class Comment {
 		this.content = content;
 	}
 
-	public Comment(int id, String userId, int boardId, String content, String writer, String registDate) {
+	public Comment(int id, int boardId, String userId, String content, String writer, String registDate) {
 		super();
 		this.id = id;
-		this.userId = userId;
 		this.boardId = boardId;
+		this.userId = userId;
 		this.content = content;
 		this.writer = writer;
 		this.registDate = registDate;

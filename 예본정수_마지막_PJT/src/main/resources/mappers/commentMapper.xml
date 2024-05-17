@@ -10,7 +10,7 @@
 	<select id="getCommentList" parameterType="int"	resultType="Comment">
 		SELECT *
 		FROM Comment
-		Where board_id = #{boardId}
+		WHERE board_id = #{boardId}
 	</select>
 
 	<!-- 댓글 작성 -->

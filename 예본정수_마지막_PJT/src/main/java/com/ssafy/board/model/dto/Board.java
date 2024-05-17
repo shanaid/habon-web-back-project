@@ -7,9 +7,9 @@ public class Board {
 	private int id; // 게시판 고유 id
 	private String userId; // 게시판 작성 유저 id
 	private int worldcupId; // 월드컵 고유 id
-	private String title; // 게시판 제목
-	private String writer; // 게시판 작성자
 	private String content; // 게시판 내용
+	private String writer; // 게시판 작성자
+	private String title; // 게시판 제목
 	private String registDate; // 작성일자
 	private int viewCount; // 게시판 조회수
 

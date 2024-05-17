@@ -2,23 +2,25 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <!-- 네임스페이스에 DAO 풀패키지명을 작성 -->
+<!-- 네임스페이스에 DAO 풀패키지명을 작성 -->
 <mapper namespace="com.ssafy.board.model.dao.UserDao">
 	<select id="userLogin" parameterType="Map" resultType="User">
 		SELECT *
 		FROM user
-		WHERE user_id = #{userId} AND user_password = #{userPassword}
+		WHERE id = #{id} AND password = #{password}
 	</select>
-	
+
 	<select id="checkUser" parameterType="User" resultType="User">
 		SELECT *
 		FROM user
-		WHERE user_id = #{userId}
+		WHERE id = #{id}
 	</select>
-	
+
 	<insert id="insertUser" parameterType="User">
 		INSERT INTO user
-		VALUES (#{userId}, #{userPassword}, #{userName}, #{userEmail}, #{userNickname})
+		VALUES
+		(#{id}, #{password}, #{name}, #{email},
+		#{nickname},#{age},#{img},#{sport},#{team},#{player},#{point})
 	</insert>
-	
+
 </mapper>

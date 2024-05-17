@@ -50,6 +50,21 @@ public class User {
 		this.player = player;
 		this.point = point;
 	}
+	
+	public User(String id, String password, String name, String email, String nickname, int age, String img,
+			String sport, String team, String player) {
+		super();
+		this.id = id;
+		this.password = password;
+		this.name = name;
+		this.email = email;
+		this.nickname = nickname;
+		this.age = age;
+		this.img = img;
+		this.sport = sport;
+		this.team = team;
+		this.player = player;
+	}
 
 	public String getId() {
 		return id;

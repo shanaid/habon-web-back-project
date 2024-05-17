@@ -43,7 +43,7 @@ public class UserController {
 	@PostMapping("/user/login")
 	public ResponseEntity<?> login(@RequestBody User user, HttpSession session) {
 //		System.out.println(user.toString());
-		User login = userService.userLogin(user.getUserId(), user.getUserPassword());
+		User login = userService.userLogin(user.getId(), user.getPassword());
 
 		if (session.getAttribute("loginUser") == null) {
 //			System.out.println(login.toString());

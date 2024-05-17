@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 네임스페이스에 DAO 풀패키지명을 작성 -->
+<mapper namespace="com.ssafy.board.model.dao.ReplyDao">
+
+
+	<!-- 대댓글 전체 보기 -->
+	<select id="getReplyList" parameterType="int" resultType="Reply">
+		Select
+		*
+		From reply
+		Where comment_id = #{commentId}
+	</select>
+
+	<!-- 대댓글 작성 -->
+	<insert id="registReply" parameterType="Reply">
+		Insert Into Reply
+		(board_id, user_id, comment_id writer, content)
+		Values
+		(#{boardId},#{userId},#{commentId},#{writer},#{content})
+	</insert>
+
+
+	<!-- 대댓글 수정 -->
+	<update id="updateReply" parameterType="Reply">
+		Update reply
+		Set
+		content = #{content}
+		Where id = #{id}
+	</update>
+
+	<!-- 유저아이디 가져오기 -->
+	<select id="getUserId" resultType="String" parameterType="int">
+		Select
+		user_id
+		From reply
+		Where id = #{id}
+	</select>
+
+	<!-- 대댓글 삭제 -->
+	<delete id="deleteReply" parameterType="int">
+		Delete From reply
+		Where id = #{id}
+	</delete>
+</mapper>

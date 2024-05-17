@@ -12,8 +12,8 @@ public class SwaggerConfig {
 	  @Bean
 	  public OpenAPI springShopOpenAPI() {
 	      return new OpenAPI()
-	              .info(new Info().title("Spring Board REST API")
-	              .description("SSAFIT 운영 연습 REST API입니다.")
+	              .info(new Info().title("Spring HABON REST API")
+	              .description("HABON 연습 REST API입니다.")
 	              .version("v0.0.1")
 	              .license(new License().name("SSAFY").url("https://www.ssafy.com")));
 	  }

@@ -6,7 +6,7 @@ import com.ssafy.board.model.dto.Comment;
 
 public interface CommentDao {
 
-	public List<Comment> getCommentList(int id);
+	public List<Comment> getCommentList(int boardId);
 
 	public void registComment(Comment comment);
 

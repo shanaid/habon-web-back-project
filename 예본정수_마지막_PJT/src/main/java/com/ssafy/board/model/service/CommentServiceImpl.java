@@ -21,6 +21,14 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public List<Comment> getCommentList(int id) {
+		
+		System.out.println("@@@@@@@@@@@@@@@@@@@@");
+		System.out.println("@@@@@@@@@@@@@@@@@@@@");
+		System.out.println("@@@@@@@@@@@@@@@@@@@@");
+		System.out.println(id);
+		System.out.println("@@@@@@@@@@@@@@@@@@@@");
+		System.out.println("@@@@@@@@@@@@@@@@@@@@");
+		
 		return commentDao.getCommentList(id);
 	}
 

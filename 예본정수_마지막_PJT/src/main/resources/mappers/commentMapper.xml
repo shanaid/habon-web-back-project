@@ -7,10 +7,9 @@
 
 
 	<!-- 댓글 전체 보기 -->
-	<select id="getCommentList" parameterType="int"
-		resultType="Comment">
-		Select *
-		From comment
+	<select id="getCommentList" parameterType="int"	resultType="Comment">
+		SELECT *
+		FROM Comment
 		Where board_id = #{boardId}
 	</select>
 

@@ -27,6 +27,7 @@ public class Comment {
 		this.writer = writer;
 		this.registDate = registDate;
 	}
+	
 
 	public int getId() {
 		return id;

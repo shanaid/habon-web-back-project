@@ -15,24 +15,25 @@
 	<!-- 게시글 수정 -->
 	<update id="updateBoard" parameterType="Board">
 		UPDATE board
-		SET content = #{content}, writer = #{writer}, title = #{title}
+		SET content =
+		#{content}, writer = #{writer}, title = #{title}
 		WHERE id = #{id};
 	</update>
 
 	<!-- 게시글 삭제 -->
 	<delete id="deleteBoard" parameterType="int">
 		DELETE FROM board
-		WHERE id = #{id};
+		WHERE id
+		= #{id};
 	</delete>
 
 
 	<!-- 게시글 등록 -->
 	<insert id="insertBoard" parameterType="Board">
 		INSERT INTO board
-		(user_id, worldcup_id, titleworldcup_id, writer, content)
-		VALUES (
-		#{user_id}, #{worldcup_id},#{titleworldcup_id}, #{writer},
-		#{content});
+		(user_id, worldcup_id, title, writer, content)
+		VALUES (#{userId},
+		#{worldcupId},#{title}, #{writer}, #{content});
 	</insert>
 
 	<!-- 조회수 증가 -->
@@ -42,5 +43,12 @@
 		view_count = view_count+1
 		WHERE id = #{id};
 	</update>
+
+	<!-- 유저 아이디 얻어오기 -->
+	<select id="getUserId" resultType="String" parameterType="int">
+		SELECT user_Id
+		FROM board
+		WHERE id = #{id};
+	</select>
 
 </mapper>

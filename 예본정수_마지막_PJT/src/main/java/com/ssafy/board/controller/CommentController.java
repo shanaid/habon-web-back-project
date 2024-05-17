@@ -36,12 +36,19 @@ public class CommentController {
 		this.commentService = commentService;
 	}
 
+	
+	
 	@GetMapping("/comment/{board_id}")
-	public ResponseEntity<List<Comment>> selectAll(@PathVariable("board_id") int id) {
+	public ResponseEntity<List<Comment>> selectAll(@PathVariable ("board_id") int id) {
+		
 		List<Comment> commentList = commentService.getCommentList(id);
+		
 		return new ResponseEntity<List<Comment>>(commentList, HttpStatus.OK);
 	}
 
+	
+	
+	
 	@PostMapping("/comment/{board_id}")
 	public ResponseEntity<?> registComment(@PathVariable("board_id") int b_id, @RequestBody Comment comment,
 			HttpSession session) {
@@ -57,6 +64,7 @@ public class CommentController {
 			return new ResponseEntity<String>(msg, HttpStatus.BAD_REQUEST);
 		}
 	}
+	
 
 	@PutMapping("/comment/{id}")
 	public ResponseEntity<?> updateComment(@PathVariable("id") int id, @RequestBody Comment comment,

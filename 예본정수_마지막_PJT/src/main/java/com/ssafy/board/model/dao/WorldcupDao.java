@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.ssafy.board.model.dto.Elements;
+import com.ssafy.board.model.dto.ElementsRank;
 import com.ssafy.board.model.dto.Participation;
 import com.ssafy.board.model.dto.Rank;
 import com.ssafy.board.model.dto.Worldcup;
@@ -27,6 +28,9 @@ public interface WorldcupDao {
 	void updateRank(Map<String, Object> map);
 
 	void insertRank(Map<String, Object> map);
-	
+
+	void makeRankEachElements(Map<String, Object> map);
+
+	List<ElementsRank> getRankList(int w_id);
 	
 }

@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.board.model.dto.Board;
 import com.ssafy.board.model.dto.Comment;
 import com.ssafy.board.model.dto.Elements;
+import com.ssafy.board.model.dto.Rank;
 import com.ssafy.board.model.dto.User;
 import com.ssafy.board.model.dto.Worldcup;
+import com.ssafy.board.model.dto.ElementsRank;
 import com.ssafy.board.model.service.NoticeboardService;
 import com.ssafy.board.model.service.WorldcupService;
 
@@ -54,7 +56,7 @@ public class WorldcupController {
 	
 	@GetMapping("/worldcup/{worldcupId}/{cnt}")
 	@Operation(summary = "월드컵 선택")
-	public ResponseEntity<?> get(@PathVariable("worldcupId") int w_id,@PathVariable("cnt") int cnt, HttpSession session) {
+	public ResponseEntity<?> getWorldcup(@PathVariable("worldcupId") int w_id,@PathVariable("cnt") int cnt, HttpSession session) {
 		
 		if (session.getAttribute("loginUser") != null) {
 			
@@ -97,7 +99,14 @@ public class WorldcupController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	
-	
+	@GetMapping("/worldcup/result/{worldcupId}")
+	@Operation(summary = "월드컵 순서대로 가져오기")
+	public ResponseEntity<List<ElementsRank>> getWorldResult(@PathVariable("worldcupId") int w_id){
+		
+		List<ElementsRank> list = worldcupService.worldcuprank(w_id);
+		
+		return new ResponseEntity<List<ElementsRank>>(list, HttpStatus.OK);
+		
+	}
 	
 }

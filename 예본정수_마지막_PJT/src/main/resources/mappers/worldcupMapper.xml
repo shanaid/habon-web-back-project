@@ -11,7 +11,8 @@
 	</select>
 
     <select id="findByUserIdAndWorldcupId" parameterType="map" resultType="Participation">
-        SELECT * FROM Participation WHERE user_id = #{u_id} AND worldcup_id = #{w_id}
+        SELECT * FROM Participation 
+        WHERE user_id = #{u_id} AND worldcup_id = #{w_id}
     </select>
 
     <insert id="insertParticipation" parameterType="Participation">
@@ -37,5 +38,20 @@
 	</select>
 	
 	
+	<select id="findRank" parameterType="map" resultType="Rank">
+        SELECT * FROM `rank`
+        WHERE worldcup_id = #{w_id} AND ele_id = #{e_id}
+    </select>
+
+    <update id="updateRank" parameterType="map">
+        UPDATE `rank`
+        SET point = point + 1
+        WHERE worldcup_id = #{w_id} AND ele_id = #{e_id}
+    </update>
+
+    <insert id="insertRank" parameterType="map">
+        INSERT INTO `rank` (worldcup_id, ele_id, point)
+        VALUES (#{w_id}, #{e_id}, 1)
+    </insert>
 
 </mapper>

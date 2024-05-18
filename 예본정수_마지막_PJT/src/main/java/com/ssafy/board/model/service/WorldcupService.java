@@ -12,7 +12,9 @@ public interface WorldcupService {
 	
 	public int currentAttempts(int w_id,String u_id);
 
-	public List<Elements> getelements(int w_id, int cnt); 
+	public List<Elements> getelements(int w_id, int cnt);
+
+	public void updateRank(int w_id, int e_id); 
 	
 	
 	

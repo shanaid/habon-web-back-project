@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -43,16 +45,16 @@ public class WorldcupController {
 		this.worldcupService = worldcupService;
 	}
 	
-	@GetMapping("/noticeboard")
+	@GetMapping("/worldcup")
 	@Operation(summary = "게시판 전체 목록 가져오기", description = "월드컵 정보를 땅겨옴")
 	public ResponseEntity<List<Worldcup>> selectAllNoticeboard(){
 		List<Worldcup> list = worldcupService.selectAll();
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
-	@GetMapping("/noticeboard/{worldId}/{cnt}")
+	@GetMapping("/worldcup/{worldcupId}/{cnt}")
 	@Operation(summary = "월드컵 선택")
-	public ResponseEntity<?> get(@PathVariable("worldId") int w_id,@PathVariable("cnt") int cnt, HttpSession session) {
+	public ResponseEntity<?> get(@PathVariable("worldcupId") int w_id,@PathVariable("cnt") int cnt, HttpSession session) {
 		
 		if (session.getAttribute("loginUser") != null) {
 			
@@ -81,21 +83,21 @@ public class WorldcupController {
 			return new ResponseEntity<String>(msg, HttpStatus.BAD_REQUEST);
 		}
 
-		
-		
-		
-		// 엘리먼츠 리스트에 가져오기 -> 몇명인지 조사 하는데 여기서 사용자 입력이 들어가
-		
-		//, 랜덤으로 한번 정렬하기
-		
-		// 
-		
-		
-//			List<Elements> list = worldcupService.selcetWorldcup(w_id);
-//			return new ResponseEntity<List<Worldcup>>(list, HttpStatus.OK);
 	}
 	
-
+//	@GetMapping("/worldcup/{worldId}/{elementId}")
+	@PostMapping("/worldcup/{worldcupId}") //한 라운드가 끝나면 랭킹 업데이트
+	@Operation(summary = "월드컵 선택시 랭크 생성&올리기")
+	public ResponseEntity<?> rankupdate(@PathVariable("worldcupId") int w_id, @RequestBody List<Elements> elements) {
+		
+		for(Elements e: elements) {
+		worldcupService.updateRank(w_id, e.getId());
+		}
+		
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	
 	
 	
 }

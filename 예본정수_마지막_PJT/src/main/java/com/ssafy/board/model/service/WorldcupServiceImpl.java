@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.ssafy.board.model.dao.WorldcupDao;
 import com.ssafy.board.model.dto.Elements;
 import com.ssafy.board.model.dto.Participation;
+import com.ssafy.board.model.dto.Rank;
 import com.ssafy.board.model.dto.Worldcup;
 
 @Service
@@ -80,5 +81,28 @@ public class WorldcupServiceImpl implements WorldcupService {
 		
 		return cutedlist;
 	}
+
+	@Override
+	public void updateRank(int w_id, int e_id) {
+		
+		
+		Map<String, Object> map = new HashMap<>();
+		// 있는지 체크
+		map.put("w_id", w_id);
+		map.put("e_id", e_id);
+		
+		Rank rank = worldcupDao.findRank(map);
+		
+		if(rank != null) {
+			//rank가 존재해
+			worldcupDao.updateRank(map);
+		}else {
+			worldcupDao.insertRank(map);
+		}
+		
+	}
+	
+	
+	
 
 }

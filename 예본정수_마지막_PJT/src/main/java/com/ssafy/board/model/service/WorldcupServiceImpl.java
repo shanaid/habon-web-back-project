@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.board.model.dao.WorldcupDao;
 import com.ssafy.board.model.dto.Elements;
+import com.ssafy.board.model.dto.ElementsRank;
 import com.ssafy.board.model.dto.Participation;
 import com.ssafy.board.model.dto.Rank;
 import com.ssafy.board.model.dto.Worldcup;
@@ -38,71 +39,101 @@ public class WorldcupServiceImpl implements WorldcupService {
 		map.put("u_id", u_id);
 
 		Participation participation = worldcupDao.findByUserIdAndWorldcupId(map);
+
 		// 없다면 만들고 1로 올리고 돌려보내기
 		if (participation == null) {
-	
+
 			participation = new Participation();
-			
+
 			participation.setUserId(u_id);
 			participation.setWorldcupId(w_id);
 			participation.setParticipationCount(1);
-			
+
 			worldcupDao.insertParticipation(participation);
 			return 1;
-			
+
 		} else {
 
 			worldcupDao.updateParticipationCount(map);
 
-			return participation.getParticipationCount()+1;
+			return participation.getParticipationCount() + 1;
 		}
 
 	}
 
-	@Override //월드컵 리스트 갯수만큼 가져오기
+	@Override // 월드컵 리스트 갯수만큼 가져오기
 	public List<Elements> getelements(int w_id, int cnt) {
-		
-		//월드컵 가져오고
+
+		// 월드컵 가져오고
 		Worldcup worldcup = worldcupDao.getWorldcup(w_id);
-		
-		//해당 월드컵의 카테고리
+
+		// 해당 월드컵의 카테고리
 		String categori = worldcup.getEleCategory();
-		
-		//여기에 몽땅 담았슈
+
+		// 여기에 몽땅 담았슈 해당 카테고리에 맞는 선수들을
 		List<Elements> list = worldcupDao.getAllElements(categori);
-		
-		if(list.size()<cnt) { //근데 사이즈가 작다면..
+
+		if (list.size() < cnt) { // 근데 사이즈가 작다면..
 			return list;
 		}
-		//랜덤으로 섞음
+		// 랜덤으로 섞음
 		Collections.shuffle(list);
-		
-	    List<Elements> cutedlist = list.subList(0, cnt);
-		
+
+		List<Elements> cutedlist = list.subList(0, cnt);
+
 		return cutedlist;
 	}
 
 	@Override
 	public void updateRank(int w_id, int e_id) {
-		
-		
+
 		Map<String, Object> map = new HashMap<>();
 		// 있는지 체크
 		map.put("w_id", w_id);
 		map.put("e_id", e_id);
-		
+
 		Rank rank = worldcupDao.findRank(map);
-		
-		if(rank != null) {
-			//rank가 존재해
+
+		if (rank != null) {
+			// rank가 존재해
 			worldcupDao.updateRank(map);
-		}else {
+		} else {
 			worldcupDao.insertRank(map);
 		}
-		
+
 	}
-	
-	
-	
+
+	@Override
+	public List<ElementsRank> worldcuprank(int w_id) {
+
+		// 월드컵 가져오고
+		Worldcup worldcup = worldcupDao.getWorldcup(w_id);
+
+		// 해당 월드컵의 카테고리
+		String categori = worldcup.getEleCategory();
+
+		// 여기에 몽땅 담았슈 해당 카테고리에 맞는 선수들을!
+		List<Elements> list = worldcupDao.getAllElements(categori);
+
+		//RANK 새로 만들기
+		for(Elements e : list) {
+			int e_id = e.getId();
+			Map<String, Object> map = new HashMap<>();
+			map.put("w_id", w_id);
+			map.put("e_id", e_id);
+			worldcupDao.makeRankEachElements(map);
+		}
+		
+		
+		List<ElementsRank> ranklist = worldcupDao.getRankList(w_id);
+		
+		// 해당되는 선수 가져오기(모든 선수 RANK 만들기)
+
+//		worldcupDao.getAllElements(w_id)
+
+		// 순서대로 가져오기
+
+		return ranklist;
+	}
 
 }

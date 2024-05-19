@@ -9,6 +9,7 @@ public class Reply {
 	private String content; // 대댓글 내용
 	private String registDate; // 대댓글 등록날짜
 	
+	
 	public Reply(String content) {
 		super();
 		this.content = content;

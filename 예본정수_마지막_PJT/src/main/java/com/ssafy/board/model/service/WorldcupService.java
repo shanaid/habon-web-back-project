@@ -17,7 +17,9 @@ public interface WorldcupService {
 
 	public void updateRank(int w_id, int e_id);
 
-	public List<ElementsRank> worldcuprank(int w_id); 
+	public List<ElementsRank> worldcuprank(int w_id);
+
+	public void getpoint(String id); 
 	
 	
 	

@@ -69,6 +69,11 @@
         ORDER BY r.point DESC
     </select>
 	
+   <update id="getPoint" parameterType="map">
+    UPDATE User
+    SET point = point + #{point}
+    WHERE id = #{id}
+  </update>
 
 
 </mapper>

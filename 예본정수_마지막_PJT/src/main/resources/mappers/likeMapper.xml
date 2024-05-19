@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 네임스페이스에 DAO 풀패키지명을 작성 -->
+<mapper namespace="com.ssafy.board.model.dao.LikeDao">
+
+	<select id="checkLike" parameterType="map"
+		resultType="Recommendation">
+		SELECT id, user_id, content_type, content_id
+		FROM Recommendation
+		WHERE user_id = #{u_id}
+		AND content_type = #{type}
+		AND content_id = #{c_id}
+	</select>
+
+
+	<!-- Delete a like -->
+	<delete id="delectLike" parameterType="map">
+		DELETE FROM Recommendation
+		WHERE user_id = #{u_id}
+		AND content_type = #{type}
+		AND content_id = #{c_id}
+	</delete>
+
+	<!-- Insert a new like -->
+	<insert id="insertLike" parameterType="map">
+		INSERT INTO Recommendation (user_id, content_type, content_id)
+		VALUES (#{u_id}, #{type}, #{c_id})
+	</insert>
+	
+	<!-- Decrement like_count -->
+  <update id="downdate" parameterType="map">
+    UPDATE ${type}
+    SET like_count = like_count - 1
+    WHERE id = #{c_id}
+  </update>
+  
+  <!-- Increment like_count -->
+  <update id="update" parameterType="map">
+    UPDATE ${type}
+    SET like_count = like_count + 1
+    WHERE id = #{c_id}
+  </update>
+
+</mapper>

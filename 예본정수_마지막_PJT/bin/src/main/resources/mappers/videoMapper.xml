@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 네임스페이스에 DAO 풀패키지명을 작성 -->
+<mapper namespace="com.ssafy.board.model.dao.VideoDao">
+	<!-- 전체 영상 조회(기본은 id순으로) -->
+	<select id="selectAll" resultType="video">
+		Select *
+		FROM video
+	</select>
+
+	<select id="selectCon" resultType="video" parameterType="String">
+		Select *
+		FROM video
+		<if test="con.equals('조회수')">
+			ORDER BY video_viewCount DESC
+		</if>
+		<if test="con.equals('부위별')">
+			ORDER BY video_category
+		</if>
+	</select>
+	
+	<select id="selectOne" resultType="video" parameterType="int">
+		Select *
+		FROM video
+		WHERE video_id = #{id}
+	</select>
+	
+	<!-- 영상 조회수 증가 -->
+	<update id="updateVideoViewCnt" parameterType="int">
+		UPDATE video
+		SET video_viewCount = video_viewCount+1
+		WHERE video_id = #{id};
+	</update>
+
+</mapper>

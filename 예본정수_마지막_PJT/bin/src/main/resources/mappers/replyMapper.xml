@@ -17,7 +17,7 @@
 	<!-- 대댓글 작성 -->
 	<insert id="registReply" parameterType="Reply">
 		Insert Into Reply
-		(board_id, user_id, comment_id, writer, content)
+		(board_id, user_id, comment_id writer, content)
 		Values
 		(#{boardId},#{userId},#{commentId},#{writer},#{content})
 	</insert>

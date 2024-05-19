@@ -58,6 +58,7 @@ public class CommentController {
 			comment.setWriter(login.getNickname());
 			comment.setBoardId(b_id);
 			commentService.registComment(comment);
+			System.out.println(comment);
 			return new ResponseEntity<Comment>(comment, HttpStatus.OK);
 		} else {
 			String msg = "너 로그인 안됐어!";

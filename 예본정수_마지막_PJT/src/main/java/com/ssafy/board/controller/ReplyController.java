@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.board.model.dto.Reply;
@@ -39,15 +40,17 @@ public class ReplyController {
 		return new ResponseEntity<List<Reply>>(replyList, HttpStatus.OK);
 	}
 
-	@PostMapping("/reply/{comment_id}")
-	public ResponseEntity<?> registReply(@PathVariable("comment_id") int c_id, @RequestBody Reply reply,
+	@PostMapping("/reply/{board_id}/{comment_id}")
+	public ResponseEntity<?> registReply(@PathVariable("board_id") int b_id, @PathVariable("comment_id") int c_id, @RequestBody Reply reply,
 			HttpSession session) {
 		if (session.getAttribute("loginUser") != null) {
 			User login = (User) session.getAttribute("loginUser");
 			reply.setUserId(login.getId());
 			reply.setWriter(login.getNickname());
+			reply.setBoardId(b_id);
 			reply.setCommentId(c_id);
 			replyService.registReply(reply);
+			System.out.println(reply);
 			return new ResponseEntity<Reply>(reply, HttpStatus.OK);
 		} else {
 			String msg = "너 로그인 안됐어!";

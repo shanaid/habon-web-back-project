@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 네임스페이스에 DAO 풀패키지명을 작성 -->
+<mapper namespace="com.ssafy.board.model.dao.CommentDao">
+
+
+	<!-- 댓글 전체 보기 -->
+	<select id="getCommentList" parameterType="int"	resultType="Comment">
+		SELECT *
+		FROM Comment
+		WHERE board_id = #{boardId}
+	</select>
+
+	<!-- 댓글 작성 -->
+	<insert id="registComment" parameterType="Comment">
+		Insert Into Comment
+		(board_id, user_id, writer, content)
+		Values
+		(#{boardId},#{userId},#{writer},#{content})
+	</insert>
+
+
+	<!-- 댓글 수정 -->
+	<update id="updateComment" parameterType="Comment">
+		Update comment
+		Set
+		content = #{content}
+		Where id = #{id}
+	</update>
+
+	<!-- 유저아이디 가져오기 -->
+	<select id="getUserId" resultType="String" parameterType="int">
+		Select
+		user_id
+		From comment
+		Where id = #{id}
+	</select>
+
+	<!-- 댓글 삭제 -->
+	<delete id="deleteComment" parameterType="int">
+		Delete From comment
+		Where id = #{id}
+	</delete>
+</mapper>

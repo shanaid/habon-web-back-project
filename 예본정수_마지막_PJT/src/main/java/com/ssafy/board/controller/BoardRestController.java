@@ -112,6 +112,7 @@ public class BoardRestController {
 			return new ResponseEntity<String>(msg, HttpStatus.BAD_REQUEST);
 		}
 	}
+	
 
 //	@GetMapping("/board/review/{review_id}")
 //	public ResponseEntity<Board> selectOne(@PathVariable("review_id") int r_id) {

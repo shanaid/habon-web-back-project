@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -134,6 +135,22 @@ public class WorldcupServiceImpl implements WorldcupService {
 		// 순서대로 가져오기
 
 		return ranklist;
+	}
+
+	@Override
+	public void getpoint(String id) {
+		Map<String, Object> map = new HashMap<>();
+		
+		Random random = new Random();
+        int point = 100 + random.nextInt(401);
+		
+		map.put("id", id);
+		map.put("point", point);
+		System.out.println(point);
+		System.out.println(id);
+		
+		worldcupDao.getPoint(map);
+		
 	}
 
 }

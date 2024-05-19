@@ -32,5 +32,7 @@ public interface WorldcupDao {
 	void makeRankEachElements(Map<String, Object> map);
 
 	List<ElementsRank> getRankList(int w_id);
+
+	void getPoint(Map<String, Object> map);
 	
 }

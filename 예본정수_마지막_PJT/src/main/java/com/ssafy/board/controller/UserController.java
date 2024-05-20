@@ -18,6 +18,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @RestController
@@ -38,6 +41,7 @@ public class UserController {
 		User check = userService.checkUser(user);
 		if (check == null) {
 			userService.insertUser(user);
+			userService.updateImg(user.getId());
 			return new ResponseEntity<String>("회원가입 성공",HttpStatus.OK);
 		}
 		String msg = "이미 있는 아이디입니다.";
@@ -84,7 +88,28 @@ public class UserController {
 		userService.updateUser(user);
 		session.removeAttribute("loginUser");
 		return new ResponseEntity<>(HttpStatus.OK);
-		
-			
+				
 	}
+	
+	@GetMapping("/user/updateImg")
+	public ResponseEntity<?> updateImg(HttpSession session) {
+		User login = (User) session.getAttribute("loginUser");
+		
+		User user = userService.checkUser(login);
+		if(user.getPoint()>=1000) {
+			
+			userService.updateImg(user.getId());
+			
+			login = userService.checkUser(login);
+			
+			return new ResponseEntity<User>(login,HttpStatus.OK);
+		}
+		String msg = "적어도 1000 포인트가 있어야 합니다.";
+		return new ResponseEntity<String>(msg,HttpStatus.BAD_REQUEST);
+				
+	}
+	
+	
+	
+	
 }

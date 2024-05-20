@@ -13,5 +13,11 @@ public interface UserDao {
 	public User userLogin(Map<String, String> info);
 
 	public void updateUser(User user);
+
+	public String randomImg();
+
+	public void setImg(Map map);
+
+	public void delectPoint(String id);
 	
 }

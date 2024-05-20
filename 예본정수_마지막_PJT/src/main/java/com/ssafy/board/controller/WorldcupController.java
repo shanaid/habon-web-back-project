@@ -100,6 +100,7 @@ public class WorldcupController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
+	
 	@GetMapping("/worldcup/result/{worldcupId}")
 	@Operation(summary = "월드컵 순서대로 가져오기")
 	public ResponseEntity<List<ElementsRank>> getWorldResult(@PathVariable("worldcupId") int w_id) {
@@ -109,6 +110,8 @@ public class WorldcupController {
 		return new ResponseEntity<List<ElementsRank>>(list, HttpStatus.OK);
 
 	}
+	
+	
 
 	@GetMapping("/worldcup/point")
 	@Operation(summary = "포인트 주기")

@@ -13,5 +13,9 @@ public interface UserService {
 	public User userLogin(String id, String password);
 	
 	public void updateUser(User user);
+	
+	public void updateImg(String id);
+
+
 }
  

@@ -26,11 +26,11 @@ DROP TABLE IF EXISTS `board`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `board` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `user_id` varchar(20) COLLATE utf8mb3_bin NOT NULL,
+  `user_id` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
   `worldcup_id` int NOT NULL,
-  `title` varchar(100) COLLATE utf8mb3_bin NOT NULL,
-  `writer` varchar(20) COLLATE utf8mb3_bin NOT NULL,
-  `content` text COLLATE utf8mb3_bin NOT NULL,
+  `title` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
+  `writer` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
+  `content` text CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
   `registDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `view_count` int NOT NULL DEFAULT '0',
   `like_count` int NOT NULL DEFAULT '0',
@@ -39,7 +39,7 @@ CREATE TABLE `board` (
   KEY `user_id_idx` (`user_id`),
   CONSTRAINT `b_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `b_worldcup_id` FOREIGN KEY (`worldcup_id`) REFERENCES `worldcup` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,6 +48,7 @@ CREATE TABLE `board` (
 
 LOCK TABLES `board` WRITE;
 /*!40000 ALTER TABLE `board` DISABLE KEYS */;
+INSERT INTO `board` VALUES (2,'ssafy',1,'ㅈㅈㅈㅈㅈㅈㅈㅈㅈㅈㅈㅈㅈㅈㅈㅈㅈㅈ','된장찌개','ㅈㅈㅈㅈㅈㅈㅈㅈㅈㅈㅈㅈㅈㅈㅈ','2024-05-20 09:14:45',284,1),(3,'ssafy',1,'rqrq','된장찌개','rqrqrqr','2024-05-20 11:29:48',4,1),(4,'ssafy',1,'qweqwe','된장찌개','qwewqewqe','2024-05-20 11:31:09',1,0);
 /*!40000 ALTER TABLE `board` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -61,17 +62,17 @@ DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment` (
   `id` int NOT NULL AUTO_INCREMENT,
   `board_id` int NOT NULL,
-  `user_id` varchar(20) COLLATE utf8mb3_bin NOT NULL,
-  `writer` varchar(20) COLLATE utf8mb3_bin NOT NULL,
-  `content` text COLLATE utf8mb3_bin NOT NULL,
+  `user_id` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
+  `writer` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
+  `content` text CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
   `registDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `like_count` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `board_id_idx` (`board_id`),
   KEY `user_id_idx` (`user_id`),
-  CONSTRAINT `c_board_id` FOREIGN KEY (`board_id`) REFERENCES `board` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `c_board_id_fk` FOREIGN KEY (`board_id`) REFERENCES `board` (`id`) ON DELETE CASCADE,
   CONSTRAINT `c_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -80,6 +81,7 @@ CREATE TABLE `comment` (
 
 LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
+INSERT INTO `comment` VALUES (4,2,'ssafy','된장찌개','aqqaqaqeeee','2024-05-20 09:26:32',1),(5,2,'ssafy','된장찌개','weweweewewe','2024-05-20 09:26:40',0);
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -92,12 +94,12 @@ DROP TABLE IF EXISTS `elements`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `elements` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `category` varchar(45) COLLATE utf8mb3_bin NOT NULL,
-  `sub_category` varchar(45) COLLATE utf8mb3_bin DEFAULT NULL,
+  `category` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
+  `sub_category` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL,
   `league` tinyint NOT NULL DEFAULT '0',
-  `name` varchar(45) COLLATE utf8mb3_bin NOT NULL,
-  `img` varchar(255) COLLATE utf8mb3_bin NOT NULL,
-  `information` varchar(255) COLLATE utf8mb3_bin DEFAULT NULL,
+  `name` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
+  `img` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
+  `information` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -121,14 +123,14 @@ DROP TABLE IF EXISTS `participation`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `participation` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `user_id` varchar(20) COLLATE utf8mb3_bin NOT NULL,
+  `user_id` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
   `worldcup_id` int NOT NULL,
   `participation_count` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_worldcup_unique` (`user_id`,`worldcup_id`),
   KEY `worldcup_id` (`worldcup_id`),
   CONSTRAINT `participation_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `participation_ibfk_2` FOREIGN KEY (`worldcup_id`) REFERENCES `worldcup` (`id`)
+  CONSTRAINT `participation_ibfk_2` FOREIGN KEY (`worldcup_id`) REFERENCES `worldcup` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -138,7 +140,7 @@ CREATE TABLE `participation` (
 
 LOCK TABLES `participation` WRITE;
 /*!40000 ALTER TABLE `participation` DISABLE KEYS */;
-INSERT INTO `participation` VALUES (1,'string',1,-100),(11,'string',2,-100),(12,'string',3,-100),(13,'string',4,4),(14,'string',5,4),(15,'saffy',1,-38),(16,'ssafy',1,-50),(17,'ssafy',4,-95),(18,'ssafy',6,-97),(19,'ssafy',5,-97),(20,'ssafy',3,-99),(21,'ssafy',2,-89),(22,'saffy',5,-95),(23,'saffy',2,-989),(24,'saffy',3,-93),(25,'saffy',6,1),(26,'saffy',4,2);
+INSERT INTO `participation` VALUES (1,'string',1,-100),(11,'string',2,-100),(13,'string',4,4),(15,'saffy',1,-38),(16,'ssafy',1,-42),(17,'ssafy',4,-95),(18,'ssafy',6,-97),(21,'ssafy',2,-89),(23,'saffy',2,-989),(25,'saffy',6,1),(26,'saffy',4,2);
 /*!40000 ALTER TABLE `participation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -160,8 +162,8 @@ CREATE TABLE `rank` (
   KEY `worldcup_id_idx` (`worldcup_id`),
   KEY `ele_id_idx` (`ele_id`),
   CONSTRAINT `rank_ele_id` FOREIGN KEY (`ele_id`) REFERENCES `elements` (`id`),
-  CONSTRAINT `rank_worldcup_id` FOREIGN KEY (`worldcup_id`) REFERENCES `worldcup` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=179 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
+  CONSTRAINT `rank_worldcup_id` FOREIGN KEY (`worldcup_id`) REFERENCES `worldcup` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=333 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -170,7 +172,7 @@ CREATE TABLE `rank` (
 
 LOCK TABLES `rank` WRITE;
 /*!40000 ALTER TABLE `rank` DISABLE KEYS */;
-INSERT INTO `rank` VALUES (125,1,33,27,0),(126,1,54,23,0),(127,1,32,14,0),(128,1,38,20,0),(129,1,29,14,0),(130,1,15,26,0),(131,1,18,12,0),(132,1,53,9,0),(133,1,19,18,0),(134,1,36,14,0),(135,1,37,21,0),(136,1,34,11,0),(137,1,58,14,0),(138,1,20,24,0),(139,1,57,19,0),(140,1,40,14,0),(141,1,16,26,0),(142,1,30,12,0),(143,1,17,9,0),(144,1,39,17,0),(145,1,31,15,0),(146,1,35,21,0),(147,2,33,7,0),(148,2,39,1,0),(149,2,38,2,0),(150,2,31,3,0),(151,2,34,4,0),(152,2,30,1,0),(153,2,17,6,0),(154,2,54,1,0),(155,2,53,2,0),(156,2,19,1,0),(157,2,18,2,0),(158,2,37,1,0),(159,5,46,1,0),(160,5,25,2,0),(161,6,28,1,0),(162,6,46,2,0),(163,4,42,4,0),(164,3,41,6,0),(165,3,55,1,0),(166,3,22,2,0),(167,3,21,1,0),(168,4,43,2,0),(169,4,56,2,0),(170,3,43,3,0),(171,3,24,2,0),(172,3,44,2,0),(173,4,22,2,0),(174,4,21,1,0),(175,2,32,1,0),(176,2,29,2,0),(177,2,36,1,0),(178,2,58,4,0);
+INSERT INTO `rank` VALUES (125,1,33,29,0),(126,1,54,27,0),(127,1,32,21,0),(128,1,38,20,0),(129,1,29,18,0),(130,1,15,31,0),(131,1,18,15,0),(132,1,53,12,0),(133,1,19,19,0),(134,1,36,19,0),(135,1,37,21,0),(136,1,34,13,0),(137,1,58,16,0),(138,1,20,24,0),(139,1,57,22,0),(140,1,40,16,0),(141,1,16,30,0),(142,1,30,15,0),(143,1,17,13,0),(144,1,39,19,0),(145,1,31,16,0),(146,1,35,22,0),(147,2,33,7,0),(148,2,39,1,0),(149,2,38,2,0),(150,2,31,3,0),(151,2,34,4,0),(152,2,30,1,0),(153,2,17,6,0),(154,2,54,1,0),(155,2,53,2,0),(156,2,19,1,0),(157,2,18,2,0),(158,2,37,1,0),(161,6,28,1,0),(162,6,46,2,0),(163,4,42,4,0),(168,4,43,2,0),(169,4,56,2,0),(173,4,22,2,0),(174,4,21,1,0),(175,2,32,1,0),(176,2,29,2,0),(177,2,36,1,0),(178,2,58,4,0);
 /*!40000 ALTER TABLE `rank` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -183,13 +185,13 @@ DROP TABLE IF EXISTS `recommendation`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `recommendation` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `user_id` varchar(20) COLLATE utf8mb3_bin NOT NULL,
+  `user_id` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
   `content_type` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
   `content_id` int NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_content_unique` (`user_id`,`content_type`,`content_id`),
   CONSTRAINT `recommendation_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -198,6 +200,7 @@ CREATE TABLE `recommendation` (
 
 LOCK TABLES `recommendation` WRITE;
 /*!40000 ALTER TABLE `recommendation` DISABLE KEYS */;
+INSERT INTO `recommendation` VALUES (44,'ssafy','board',2),(39,'ssafy','board',3),(42,'ssafy','comment',4);
 /*!40000 ALTER TABLE `recommendation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -211,19 +214,18 @@ DROP TABLE IF EXISTS `reply`;
 CREATE TABLE `reply` (
   `id` int NOT NULL AUTO_INCREMENT,
   `board_id` int NOT NULL,
-  `user_id` varchar(20) COLLATE utf8mb3_bin NOT NULL,
+  `user_id` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
   `comment_id` int NOT NULL,
-  `writer` varchar(20) COLLATE utf8mb3_bin NOT NULL,
-  `content` text COLLATE utf8mb3_bin NOT NULL,
+  `writer` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
+  `content` text CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
   `registDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `user_id_idx` (`user_id`),
   KEY `comment_id_idx` (`comment_id`),
   KEY `board_id_idx` (`board_id`),
-  CONSTRAINT `r_board_id` FOREIGN KEY (`board_id`) REFERENCES `comment` (`board_id`) ON DELETE CASCADE,
-  CONSTRAINT `r_comment_id` FOREIGN KEY (`comment_id`) REFERENCES `comment` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `r_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
+  CONSTRAINT `r_comment_id_fk` FOREIGN KEY (`comment_id`) REFERENCES `comment` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `r_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -266,8 +268,8 @@ DROP TABLE IF EXISTS `requestboard`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `requestboard` (
   `id` int NOT NULL,
-  `title` varchar(100) COLLATE utf8mb3_bin NOT NULL,
-  `content` text COLLATE utf8mb3_bin NOT NULL,
+  `title` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
+  `content` text CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -289,16 +291,16 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
-  `id` varchar(20) COLLATE utf8mb3_bin NOT NULL,
-  `password` varchar(30) COLLATE utf8mb3_bin NOT NULL,
-  `name` varchar(20) COLLATE utf8mb3_bin NOT NULL,
-  `email` varchar(45) COLLATE utf8mb3_bin NOT NULL,
-  `nickname` varchar(20) COLLATE utf8mb3_bin NOT NULL,
+  `id` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
+  `password` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
+  `name` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
+  `email` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
+  `nickname` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
   `age` int NOT NULL,
-  `img` varchar(255) COLLATE utf8mb3_bin DEFAULT NULL,
-  `sport` varchar(45) COLLATE utf8mb3_bin DEFAULT NULL,
-  `team` varchar(45) COLLATE utf8mb3_bin DEFAULT NULL,
-  `player` varchar(45) COLLATE utf8mb3_bin DEFAULT NULL,
+  `img` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL,
+  `sport` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL,
+  `team` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL,
+  `player` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL,
   `point` bigint NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`),
@@ -347,8 +349,8 @@ DROP TABLE IF EXISTS `worldcup`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `worldcup` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `ele_category` varchar(45) COLLATE utf8mb3_bin NOT NULL,
-  `sub_category` varchar(45) COLLATE utf8mb3_bin DEFAULT NULL,
+  `ele_category` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
+  `sub_category` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL,
   `league` tinyint NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
@@ -360,7 +362,7 @@ CREATE TABLE `worldcup` (
 
 LOCK TABLES `worldcup` WRITE;
 /*!40000 ALTER TABLE `worldcup` DISABLE KEYS */;
-INSERT INTO `worldcup` VALUES (1,'선수','가장 잘하는 선수는?',1),(2,'선수','외모가 가장 멋있는 선수는?',1),(3,'팀','가장 재밌는 팀은?',1),(4,'팀','가장 강력한 팀은?',1),(5,'스포츠','가장 인기 있는 스포츠는?',1),(6,'스포츠','가장 힘든 스포츠는?',1);
+INSERT INTO `worldcup` VALUES (1,'선수','가장 잘하는 선수는?',1),(2,'선수','외모가 가장 멋있는 선수는?',1),(4,'팀','가장 강력한 팀은?',1),(6,'스포츠','가장 힘든 스포츠는?',1);
 /*!40000 ALTER TABLE `worldcup` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -373,4 +375,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-19 21:48:53
+-- Dump completed on 2024-05-21  8:53:11

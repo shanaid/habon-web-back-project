@@ -77,7 +77,7 @@ public class LikeController {
 			
 			likeService.clickLike(login.getId(), type, c_id);
 			
-			return new ResponseEntity<String>(HttpStatus.OK);
+			return new ResponseEntity<String>("성공",HttpStatus.OK);
 			
 		} else {// 만약 안되어 있다면!
 			String msg = "로그인이 필요합니다";

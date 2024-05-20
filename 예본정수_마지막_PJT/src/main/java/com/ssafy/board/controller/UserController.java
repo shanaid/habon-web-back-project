@@ -10,11 +10,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.board.model.dto.Board;
 import com.ssafy.board.model.dto.User;
 import com.ssafy.board.model.service.UserService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 @RestController
 @RequestMapping("/api-user")
@@ -71,7 +75,16 @@ public class UserController {
 			return new ResponseEntity<String>(msg, HttpStatus.BAD_REQUEST);
 		}
 	}
-	
-	
-	
+
+	@PutMapping("/user/update")
+	public ResponseEntity<?> update(@RequestBody User user, HttpSession session) {
+		User login = (User) session.getAttribute("loginUser");
+		user.setId(login.getId());
+			
+		userService.updateUser(user);
+		session.removeAttribute("loginUser");
+		return new ResponseEntity<>(HttpStatus.OK);
+		
+			
+	}
 }

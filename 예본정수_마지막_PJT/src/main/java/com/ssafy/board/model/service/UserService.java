@@ -11,5 +11,7 @@ public interface UserService {
 	public void insertUser(User user);
 	//로그인 하기
 	public User userLogin(String id, String password);
+	
+	public void updateUser(User user);
 }
  

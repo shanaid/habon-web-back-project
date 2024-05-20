@@ -11,5 +11,7 @@ public interface UserDao {
 	public User checkUser(User user);
 
 	public User userLogin(Map<String, String> info);
+
+	public void updateUser(User user);
 	
 }

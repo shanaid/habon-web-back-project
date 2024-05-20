@@ -23,4 +23,17 @@
 		#{nickname},#{age},#{img},#{sport},#{team},#{player},#{point})
 	</insert>
 
+
+	<update id="updateUser" parameterType="User">
+		UPDATE user
+		SET
+		password = #{password},
+		nickname = #{nickname},
+		sport = #{sport},
+		team = #{team},
+		player = #{player}
+		WHERE id = #{id}
+	</update>
+
+
 </mapper>

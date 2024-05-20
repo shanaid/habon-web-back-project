@@ -44,4 +44,17 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
+	@Override
+	public void updateImg(String id) {
+		String img = userDao.randomImg();
+		
+		Map<String, String> map = new HashMap<>();
+		map.put("img", img);
+		map.put("id", id);
+		
+		userDao.setImg(map);
+		
+		userDao.delectPoint(id);
+	}
+
 }

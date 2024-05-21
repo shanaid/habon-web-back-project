@@ -121,9 +121,9 @@ public class WorldcupController {
 
 			User login = (User) session.getAttribute("loginUser");
 
-			worldcupService.getpoint(login.getId());
-
-			return new ResponseEntity<>(HttpStatus.OK);
+			int point = worldcupService.getpoint(login.getId());
+			System.out.println(point);
+			return new ResponseEntity<Integer>(point, HttpStatus.OK);
 
 		} else {
 			String msg = "불확실한 경로로 접근했습니다.(로그인 확인 바랍니다)";

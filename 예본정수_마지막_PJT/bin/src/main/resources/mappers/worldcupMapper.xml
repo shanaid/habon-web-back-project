@@ -10,4 +10,70 @@
 		FROM worldcup
 	</select>
 
+    <select id="findByUserIdAndWorldcupId" parameterType="map" resultType="Participation">
+        SELECT * FROM Participation 
+        WHERE user_id = #{u_id} AND worldcup_id = #{w_id}
+    </select>
+
+    <insert id="insertParticipation" parameterType="Participation">
+        INSERT INTO Participation (user_id, worldcup_id, participation_count)
+        VALUES (#{userId}, #{worldcupId}, #{participationCount})
+    </insert>
+
+    <update id="updateParticipationCount" parameterType="map">
+        UPDATE Participation SET participation_count = participation_count + 1
+        WHERE user_id = #{u_id} AND worldcup_id = #{w_id}
+    </update>
+
+	<select id="getWorldcup" parameterType="int" resultType="Worldcup">
+		SELECT *
+		FROM worldcup
+		WHERE id = #{id}
+	</select>
+	
+	<select id="getAllElements" parameterType="String" resultType="Elements">
+		SELECT *
+		FROM elements
+		WHERE sub_category = #{categori}
+	</select>
+	
+	
+	<select id="findRank" parameterType="map" resultType="Rank">
+        SELECT * FROM `rank`
+        WHERE worldcup_id = #{w_id} AND ele_id = #{e_id}
+    </select>
+
+    <update id="updateRank" parameterType="map">
+        UPDATE `rank`
+        SET point = point + 1
+        WHERE worldcup_id = #{w_id} AND ele_id = #{e_id}
+    </update>
+
+    <insert id="insertRank" parameterType="map">
+        INSERT INTO `rank` (worldcup_id, ele_id, point)
+        VALUES (#{w_id}, #{e_id}, 1)
+    </insert>
+
+	<insert id="makeRankEachElements" parameterType="int">
+		INSERT INTO `rank` (worldcup_id, ele_id)
+        VALUES (#{w_id}, #{e_id})
+        ON DUPLICATE KEY UPDATE worldcup_id = worldcup_id
+	</insert>
+	
+	
+	<select id="getRankList" parameterType="int" resultType="com.ssafy.board.model.dto.ElementsRank">
+        SELECT e.id as elementsId, e.name as name, e.img as img, IFNULL(r.point, 0) as point
+        FROM `rank` r
+        JOIN elements e ON r.ele_id = e.id
+        WHERE r.worldcup_id = #{w_id}
+        ORDER BY r.point DESC
+    </select>
+	
+   <update id="getPoint" parameterType="map">
+    UPDATE User
+    SET point = point + #{point}
+    WHERE id = #{id}
+  </update>
+
+
 </mapper>

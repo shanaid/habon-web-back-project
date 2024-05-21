@@ -138,7 +138,7 @@ public class WorldcupServiceImpl implements WorldcupService {
 	}
 
 	@Override
-	public void getpoint(String id) {
+	public int getpoint(String id) {
 		Map<String, Object> map = new HashMap<>();
 		
 		Random random = new Random();
@@ -146,11 +146,9 @@ public class WorldcupServiceImpl implements WorldcupService {
 		
 		map.put("id", id);
 		map.put("point", point);
-		System.out.println(point);
-		System.out.println(id);
 		
 		worldcupDao.getPoint(map);
 		
+		return point;
 	}
-
 }

@@ -23,4 +23,38 @@
 		#{nickname},#{age},#{img},#{sport},#{team},#{player},#{point})
 	</insert>
 
+
+	<update id="updateUser" parameterType="User">
+		UPDATE user
+		SET
+		password = #{password},
+		nickname = #{nickname},
+		sport = #{sport},
+		team = #{team},
+		player = #{player}
+		WHERE id = #{id}
+	</update>
+
+
+	<select id="randomImg" resultType="String">
+	SELECT img
+	FROM elements
+	ORDER BY RAND()
+	LIMIT 1
+	</select>
+	
+	<update id="setImg" parameterType="map">
+	UPDATE user
+		SET
+		img = #{img}
+		WHERE id = #{id}
+	</update>
+
+	<update id="delectPoint" parameterType="String">
+		UPDATE user
+		SET
+		point = point -1000
+		WHERE id = #{id}
+	</update>
+
 </mapper>

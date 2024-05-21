@@ -19,7 +19,7 @@ public interface WorldcupService {
 
 	public List<ElementsRank> worldcuprank(int w_id);
 
-	public void getpoint(String id); 
+	public int getpoint(String id); 
 	
 	
 	

@@ -15,7 +15,8 @@
 	<!-- 상세 리뷰 조회 -->
 	<select id="selectOne" parameterType="int" resultType="board">
 		SELECT * FROM board
-		WHERE worldcup_id = #{W_id};
+		WHERE worldcup_id = #{W_id}
+		ORDER BY registDate desc;
 	</select>
 	
 

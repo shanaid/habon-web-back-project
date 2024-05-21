@@ -109,7 +109,22 @@ public class UserController {
 				
 	}
 	
-	
+	@GetMapping("/user/session/update")
+	public ResponseEntity<?> sessionUpdate(HttpSession session) {
+		
+			if (session.getAttribute("loginUser") != null) {
+			User login = (User) session.getAttribute("loginUser");
+			User user = userService.checkUser(login);
+			return new ResponseEntity<User>(user, HttpStatus.OK);
+			
+		} else {
+			String msg = "로그인 해주세요.";
+			return new ResponseEntity<String>(msg, HttpStatus.BAD_REQUEST);
+		}
+		
+		
+		
+	}
 	
 	
 }

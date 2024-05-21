@@ -19,5 +19,7 @@ public interface UserDao {
 	public void setImg(Map map);
 
 	public void delectPoint(String id);
+
+	public String getImg(Map<String, Object> map);
 	
 }

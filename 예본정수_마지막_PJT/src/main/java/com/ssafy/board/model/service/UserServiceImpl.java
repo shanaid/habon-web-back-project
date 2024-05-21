@@ -60,4 +60,16 @@ public class UserServiceImpl implements UserService {
 		userDao.delectPoint(id);
 	}
 
+	@Override
+	public String getImg(String type, int c_id) {
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("type", type);
+		map.put("c_id", c_id);
+		
+		String img = userDao.getImg(map);
+		
+		return img;
+	}
+
 }

@@ -57,5 +57,27 @@
 		point = point -1000
 		WHERE id = #{id}
 	</update>
+	
+	<select id="checkLike" parameterType="map"
+		resultType="Recommendation">
+		SELECT img
+		FROM user
+		${type}
+		
+		AND content_type = #{type}
+		AND content_id = #{c_id}
+	</select>
+	
+	 <select id="getImg" resultType="String" parameterType="map">
+        SELECT u.img
+        FROM 
+            ${type} t
+        INNER JOIN
+            user u
+        ON
+            t.user_id = u.id
+        WHERE
+            t.id = #{c_id}
+    </select>
 
 </mapper>

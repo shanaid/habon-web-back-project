@@ -15,6 +15,8 @@ public interface UserService {
 	public void updateUser(User user);
 	
 	public void updateImg(String id);
+	
+	public String getImg(String type, int c_id);
 
 
 }

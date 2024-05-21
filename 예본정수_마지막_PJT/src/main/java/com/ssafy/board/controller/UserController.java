@@ -54,9 +54,12 @@ public class UserController {
 		User login = userService.userLogin(user.getId(), user.getPassword());
 
 		if (session.getAttribute("loginUser") == null) {
+			
 //			System.out.println(login.toString());
+			
 			if (login != null) {
 				session.setAttribute("loginUser", login);
+				
 				return new ResponseEntity<User>(login, HttpStatus.OK);
 			} else {
 				String msg = "아이디 또는 비밀번호를 확인하세요!";

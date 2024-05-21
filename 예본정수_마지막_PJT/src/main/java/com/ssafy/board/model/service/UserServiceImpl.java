@@ -27,10 +27,13 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User userLogin(String id, String password) {
+		
 		Map<String, String> info = new HashMap<>();
 		info.put("id", id);
 		info.put("password", password);
+		
 		return userDao.userLogin(info);
+		
 	}
 
 	@Override

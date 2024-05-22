@@ -6,6 +6,7 @@ import com.ssafy.board.model.dto.Board;
 import com.ssafy.board.model.dto.Elements;
 import com.ssafy.board.model.dto.Worldcup;
 import com.ssafy.board.model.dto.ElementsRank;
+import com.ssafy.board.model.dto.Photo;
 
 public interface WorldcupService {
 
@@ -18,10 +19,18 @@ public interface WorldcupService {
 	public void updateRank(int w_id, int e_id);
 
 	public List<ElementsRank> worldcuprank(int w_id);
+	
+	public List<ElementsRank> allworldcuprank(int w_id);
+
+	public int getpoint(String id);
+
 
 	public int getpoint(String id);
 
 	public String getWorldcupSubCategory(int w_id); 
+
+	public List<Photo> postworldcuprank(int w_id); 
+
 	
 	
 	

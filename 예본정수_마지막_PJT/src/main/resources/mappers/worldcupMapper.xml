@@ -45,7 +45,7 @@
 
     <update id="updateRank" parameterType="map">
         UPDATE `rank`
-        SET point = point + 1
+        SET point = point + 1, acc_point = acc_point + 1
         WHERE worldcup_id = #{w_id} AND ele_id = #{e_id}
     </update>
 
@@ -61,8 +61,16 @@
 	</insert>
 	
 	
+	<select id="getAllRankList" parameterType="int" resultType="com.ssafy.board.model.dto.ElementsRank">
+        SELECT e.id as elementsId, e.name as name, e.img as img, r.point, r.acc_point
+        FROM `rank` r
+        JOIN elements e ON r.ele_id = e.id
+        WHERE r.worldcup_id = #{w_id}
+        ORDER BY r.acc_point DESC
+    </select>
+    
 	<select id="getRankList" parameterType="int" resultType="com.ssafy.board.model.dto.ElementsRank">
-        SELECT e.id as elementsId, e.name as name, e.img as img, IFNULL(r.point, 0) as point
+        SELECT e.id as elementsId, e.name as name, e.img as img, r.point, r.acc_point
         FROM `rank` r
         JOIN elements e ON r.ele_id = e.id
         WHERE r.worldcup_id = #{w_id}
@@ -75,11 +83,23 @@
     WHERE id = #{id}
   </update>
   
+
   <select id="getWorldcupSubCategory" resultType="String" parameterType="int">
   	SELECT sub_category
   	FROM worldcup
   	WHERE id = #{w_id};
+    
+  <select id="getWeekList" parameterType="int" resultType="weeklyrank">
+  	SELECT *
+  	FROM weeklyrank
+  	WHERE worldcup_id = #{w_id}
+  	ORDER BY year, month, week
+  </select>
   
+  <select id="getElements" parameterType="int" resultType="Elements">
+  	SELECT *
+  	FROM Elements
+  	WHERE id = #{id};
   
   </select>
 

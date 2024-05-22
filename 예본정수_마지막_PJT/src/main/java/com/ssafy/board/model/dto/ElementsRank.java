@@ -5,13 +5,17 @@ public class ElementsRank {
 	private String name;
 	private String img;
 	private int point;
-	
-	public ElementsRank(int elementsId, String name,String img, int point) {
+	private int accPoint;
+	public ElementsRank(int elementsId, String name, String img, int point, int accPoint) {
+		super();
 		this.elementsId = elementsId;
 		this.name = name;
 		this.img = img;
 		this.point = point;
+		this.accPoint = accPoint;
 	}
+	
+	
 	public int getElementsId() {
 		return elementsId;
 	}
@@ -36,11 +40,19 @@ public class ElementsRank {
 	public void setPoint(int point) {
 		this.point = point;
 	}
+	public int getAccPoint() {
+		return accPoint;
+	}
+	public void setAccPoint(int accPoint) {
+		this.accPoint = accPoint;
+	}
 	@Override
 	public String toString() {
-		return "ElementsRank [elementsId=" + elementsId + ", name=" + name + ", point=" + point + ", img=" + img + "]";
+		return "ElementsRank [elementsId=" + elementsId + ", name=" + name + ", img=" + img + ", point=" + point
+				+ ", accPoint=" + accPoint + "]";
 	}
 	
+
 	
 	
 }

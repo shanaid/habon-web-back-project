@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 네임스페이스에 DAO 풀패키지명을 작성 -->
+<mapper namespace="com.ssafy.board.model.dao.DataResetDao">
+
+	<!-- 상세 리뷰 조회 -->
+	<select id="getNum" resultType="int">
+		SELECT id
+		FROM worldcup;
+	</select>
+	
+	<select id="ranking_get">
+	</select>
+
+	<insert id="update" parameterType="map">
+	INSERT INTO `weeklyrank` (worldcup_id, first_ele_id, second_ele_id, third_ele_id, fourth_ele_id, fifth_ele_id)
+	VALUES (#{w_id}, #{fir}, #{sec}, #{thi}, #{fou}, #{fif});
+	</insert>
+	
+	<update id="reset">
+	UPDATE `rank`
+    SET point = 0
+    WHERE worldcup_id = #{worldId}
+	</update>
+	
+	<select id="bringweekRanking">
+	SELECT * FROM weeklyrank 
+	WHERE worldcup_id = #{worldcupId} 
+	ORDER BY year, month, week
+	</select>
+	
+
+</mapper>

@@ -55,6 +55,13 @@ public class WorldcupController {
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 
+	@GetMapping("/worldcup/{id}")
+	public ResponseEntity<String> getWorldcupSubCategory(@PathVariable("id") int w_id) {
+		String subCategory = worldcupService.getWorldcupSubCategory(w_id);
+
+		return new ResponseEntity<String>(subCategory, HttpStatus.OK);
+	}
+
 	@GetMapping("/worldcup/{worldcupId}/{cnt}")
 	@Operation(summary = "월드컵 선택")
 	public ResponseEntity<?> getWorldcup(@PathVariable("worldcupId") int w_id, @PathVariable("cnt") int cnt,
@@ -101,7 +108,6 @@ public class WorldcupController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	
 	@GetMapping("/worldcup/result/{worldcupId}")
 	@Operation(summary = "월드컵 순서대로 가져오기")
 	public ResponseEntity<List<ElementsRank>> getWorldResult(@PathVariable("worldcupId") int w_id) {
@@ -111,6 +117,7 @@ public class WorldcupController {
 		return new ResponseEntity<List<ElementsRank>>(list, HttpStatus.OK);
 
 	}
+
 
 	
 	@GetMapping("/worldcup/accresult/{worldcupId}")
@@ -133,6 +140,7 @@ public class WorldcupController {
 		
 	}
 
+
 	@GetMapping("/worldcup/point")
 	@Operation(summary = "포인트 주기")
 	public ResponseEntity<?> getPoint(HttpSession session) {
@@ -149,7 +157,6 @@ public class WorldcupController {
 			String msg = "불확실한 경로로 접근했습니다.(로그인 확인 바랍니다)";
 			return new ResponseEntity<String>(msg, HttpStatus.BAD_REQUEST);
 		}
-
 
 	}
 

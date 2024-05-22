@@ -40,10 +40,12 @@ public interface WorldcupDao {
 
 	void getPoint(Map<String, Object> map);
 
+
+	String getWorldcupSubCategory(int w_id);
+
 	List<weeklyrank> getWeekList(int w_id);
 
 	Elements getElements(int id);
-	
-	
+
 	
 }

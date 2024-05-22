@@ -157,6 +157,10 @@ public class WorldcupServiceImpl implements WorldcupService {
 	}
 
 	@Override
+	public String getWorldcupSubCategory(int w_id) {
+		return worldcupDao.getWorldcupSubCategory(w_id);
+	}
+  @Override
 	public List<ElementsRank> allworldcuprank(int w_id) {
 
 		// 월드컵 가져오고
@@ -222,11 +226,5 @@ public class WorldcupServiceImpl implements WorldcupService {
 		System.out.println(list.toString());
 		
 		return list;
-	}
-
-
-	
-	
-	
-	
+  }
 }

@@ -1,5 +1,6 @@
 package com.ssafy.board.model.service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -13,8 +14,10 @@ import com.ssafy.board.model.dao.WorldcupDao;
 import com.ssafy.board.model.dto.Elements;
 import com.ssafy.board.model.dto.ElementsRank;
 import com.ssafy.board.model.dto.Participation;
+import com.ssafy.board.model.dto.Photo;
 import com.ssafy.board.model.dto.Rank;
 import com.ssafy.board.model.dto.Worldcup;
+import com.ssafy.board.model.dto.weeklyrank;
 
 @Service
 public class WorldcupServiceImpl implements WorldcupService {
@@ -98,6 +101,7 @@ public class WorldcupServiceImpl implements WorldcupService {
 		if (rank != null) {
 			// rank가 존재해
 			worldcupDao.updateRank(map);
+//			worldcupDao.updateaccRank(map);
 		} else {
 			worldcupDao.insertRank(map);
 		}
@@ -151,4 +155,78 @@ public class WorldcupServiceImpl implements WorldcupService {
 		
 		return point;
 	}
+
+	@Override
+	public List<ElementsRank> allworldcuprank(int w_id) {
+
+		// 월드컵 가져오고
+		Worldcup worldcup = worldcupDao.getWorldcup(w_id);
+
+		// 해당 월드컵의 카테고리
+		String categori = worldcup.getEleCategory();
+
+		// 여기에 몽땅 담았슈 해당 카테고리에 맞는 선수들을!
+		List<Elements> list = worldcupDao.getAllElements(categori);
+
+		//RANK 새로 만들기
+		for(Elements e : list) {
+			int e_id = e.getId();
+			Map<String, Object> map = new HashMap<>();
+			map.put("w_id", w_id);
+			map.put("e_id", e_id);
+			worldcupDao.makeRankEachElements(map);
+		}
+		
+		
+		List<ElementsRank> ranklist = worldcupDao.getAllRankList(w_id);
+		
+
+		return ranklist;
+	}
+
+	@Override
+	public List<Photo> postworldcuprank(int w_id) {
+		
+		List<weeklyrank> wlist = worldcupDao.getWeekList(w_id);
+		List<Photo> list = new ArrayList<>();
+		
+		//리스트 1번 월드컵의 기록 싹 가져옴
+		for(weeklyrank r : wlist) {
+			
+			Photo ph = new Photo();
+			
+			ph.setMonth(r.getMonth());
+			ph.setWeek(r.getWeek());
+			ph.setYear(r.getYear());
+			
+			Elements a = worldcupDao.getElements(r.getFirstEleId());	
+			Elements b = worldcupDao.getElements(r.getSecondEleId());	
+			Elements c = worldcupDao.getElements(r.getThirdEleId());	
+			Elements d = worldcupDao.getElements(r.getFourthEleId());	
+			Elements e = worldcupDao.getElements(r.getFifthEleId());	
+			
+			ph.setFn(a.getName());
+			ph.setFi(a.getImg());
+			ph.setSn(b.getName());
+			ph.setSi(b.getImg());
+			ph.setTn(c.getName());
+			ph.setTi(c.getImg());
+			ph.setFon(d.getName());
+			ph.setFoi(d.getImg());
+			ph.setFin(e.getName());
+			ph.setFii(e.getImg());
+			System.out.	println(ph.toString());
+			list.add(ph);
+			
+		}
+		System.out.println(list.toString());
+		
+		return list;
+	}
+
+
+	
+	
+	
+	
 }

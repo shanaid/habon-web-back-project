@@ -21,6 +21,7 @@ import com.ssafy.board.model.dto.Rank;
 import com.ssafy.board.model.dto.User;
 import com.ssafy.board.model.dto.Worldcup;
 import com.ssafy.board.model.dto.ElementsRank;
+import com.ssafy.board.model.dto.Photo;
 import com.ssafy.board.model.service.NoticeboardService;
 import com.ssafy.board.model.service.WorldcupService;
 
@@ -110,8 +111,27 @@ public class WorldcupController {
 		return new ResponseEntity<List<ElementsRank>>(list, HttpStatus.OK);
 
 	}
+
 	
+	@GetMapping("/worldcup/accresult/{worldcupId}")
+	@Operation(summary = "누적 월드컵 순서대로 가져오기")
+	public ResponseEntity<List<ElementsRank>> getAccWorldResult(@PathVariable("worldcupId") int w_id) {
+		
+		List<ElementsRank> list = worldcupService.allworldcuprank(w_id);
+		
+		return new ResponseEntity<List<ElementsRank>>(list, HttpStatus.OK);
+		
+	}
 	
+	@GetMapping("/worldcup/postresult/{worldcupId}")
+	@Operation(summary = "과거 기록 가져오기")
+	public ResponseEntity<List<Photo>> getPostResult(@PathVariable("worldcupId") int w_id) {
+		
+		List<Photo> list = worldcupService.postworldcuprank(w_id);
+		
+		return new ResponseEntity<List<Photo>>(list, HttpStatus.OK);
+		
+	}
 
 	@GetMapping("/worldcup/point")
 	@Operation(summary = "포인트 주기")

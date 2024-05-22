@@ -8,6 +8,7 @@ import com.ssafy.board.model.dto.ElementsRank;
 import com.ssafy.board.model.dto.Participation;
 import com.ssafy.board.model.dto.Rank;
 import com.ssafy.board.model.dto.Worldcup;
+import com.ssafy.board.model.dto.weeklyrank;
 
 public interface WorldcupDao {
 
@@ -27,12 +28,22 @@ public interface WorldcupDao {
 
 	void updateRank(Map<String, Object> map);
 
+	void updateaccRank(Map<String, Object> map);
+	
 	void insertRank(Map<String, Object> map);
 
 	void makeRankEachElements(Map<String, Object> map);
 
 	List<ElementsRank> getRankList(int w_id);
 
+	List<ElementsRank> getAllRankList(int w_id);
+
 	void getPoint(Map<String, Object> map);
+
+	List<weeklyrank> getWeekList(int w_id);
+
+	Elements getElements(int id);
+	
+	
 	
 }

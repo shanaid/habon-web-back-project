@@ -74,6 +74,14 @@
     SET point = point + #{point}
     WHERE id = #{id}
   </update>
+  
+  <select id="getWorldcupSubCategory" resultType="String" parameterType="int">
+  	SELECT sub_category
+  	FROM worldcup
+  	WHERE id = #{w_id};
+  
+  
+  </select>
 
 
 </mapper>

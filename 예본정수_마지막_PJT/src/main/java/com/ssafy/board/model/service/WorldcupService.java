@@ -19,7 +19,9 @@ public interface WorldcupService {
 
 	public List<ElementsRank> worldcuprank(int w_id);
 
-	public int getpoint(String id); 
+	public int getpoint(String id);
+
+	public String getWorldcupSubCategory(int w_id); 
 	
 	
 	

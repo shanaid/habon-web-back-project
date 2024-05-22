@@ -151,4 +151,9 @@ public class WorldcupServiceImpl implements WorldcupService {
 		
 		return point;
 	}
+
+	@Override
+	public String getWorldcupSubCategory(int w_id) {
+		return worldcupDao.getWorldcupSubCategory(w_id);
+	}
 }

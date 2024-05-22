@@ -34,5 +34,7 @@ public interface WorldcupDao {
 	List<ElementsRank> getRankList(int w_id);
 
 	void getPoint(Map<String, Object> map);
+
+	String getWorldcupSubCategory(int w_id);
 	
 }

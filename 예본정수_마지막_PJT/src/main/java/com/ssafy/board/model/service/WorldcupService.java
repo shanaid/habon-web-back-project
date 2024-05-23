@@ -24,9 +24,6 @@ public interface WorldcupService {
 
 	public int getpoint(String id);
 
-
-	public int getpoint(String id);
-
 	public String getWorldcupSubCategory(int w_id); 
 
 	public List<Photo> postworldcuprank(int w_id); 
